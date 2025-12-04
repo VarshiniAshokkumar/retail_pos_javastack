@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Customer - Retail POS</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark px-3">
+<a class="navbar-brand" href="#">Retail POS</a>
+</nav>
+
+<div class="d-flex">
+
+<div class="sidebar bg-light p-3">
+<h5>Menu</h5>
+<a href="index.html" class="sidebar-item">Dashboard</a>
+<a href="products.html" class="sidebar-item">Products</a>
+<a href="customers.html" class="sidebar-item">Customers</a>
+<a href="billing.html" class="sidebar-item">Billing</a>
+<a href="bills.html" class="sidebar-item">Bill History</a>
+<a href="lending.html" class="sidebar-item">Lending</a>
+</div>
+
+<div class="content p-4">
+<h2>Add Customer</h2>
+<p class="text-muted">Enter customer details below</p>
+
+<form id="addCustomerForm" class="mt-4">
+<div class="mb-3">
+    <label class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" required>
+</div>
+<div class="mb-3">
+    <label class="form-label">Phone</label>
+    <input type="text" class="form-control" id="phone" required>
+</div>
+<div class="mb-3">
+    <label class="form-label">Address</label>
+    <textarea class="form-control" id="address" rows="3"></textarea>
+</div>
+
+<button type="submit" class="btn btn-success">Save Customer</button>
+<a href="customers.html" class="btn btn-secondary">Cancel</a>
+</form>
+
+<div id="successMsg" class="alert alert-success mt-4 d-none">
+Customer added successfully!
+</div>
+</div>
+</div>
+
+<script src="assets/js/app.js"></script>
+<script>
+let customers = JSON.parse(localStorage.getItem("customers") || "[]");
+
+document.getElementById("addCustomerForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    let newCustomer = {
+        id: customers.length+1,
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value
+    };
+    customers.push(newCustomer);
+    localStorage.setItem("customers", JSON.stringify(customers));
+    document.getElementById("successMsg").classList.remove("d-none");
+    this.reset();
+});
+</script>
+
+</body>
+</html>
